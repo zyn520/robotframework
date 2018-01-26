@@ -1,0 +1,27 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           DatabaseLibrary
+Library           Selenium2Library
+Library           requests
+Resource          keywords.txt
+Library           String
+
+*** Variables ***
+
+*** Test Cases ***
+ele_serch
+    [Setup]
+    ${header}    create dictionary    Content-Type=application/x-www-form-urlencoded; charset=UTF-8
+    ${d}    Set Variable    pageNumber=1&pageSize=10&keywords=
+    ${resp}    sssPostRequests    ${header}    /device/search    ${d}
+
+edit_ele
+    ${header}    create dictionary    Content-Type=application/x-www-form-urlencoded; charset=UTF-8
+    ${data}    Set Variable    id=&name=2&description=&parentName=-1&groupMasterName=admin&groupViceMasterName=admin
+    ${resp}    sssPostRequests    ${header}    /executorgroup/edit    ${data}
+    log    ${resp.status_code }
+    Should Be Equal As Strings    操作成功    ${resp.json()['message']}
+
+refresh
+    ${d}    getrequests  /index

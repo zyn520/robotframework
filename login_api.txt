@@ -1,0 +1,27 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           DatabaseLibrary
+Library           Selenium2Library
+Library           requests
+Library           String
+Resource          keywords.txt
+
+*** Test Cases ***
+loginapi_001
+    ${body}    Set Variable    password=e10adc3949ba59abbe56e057f20f883e&sign=5c81a2d88916903393e9797338db66e4&time=20180125155725&loginUserName=%E6%96%B9%E5%A8%9F&mac=00I71S1710180003
+    ${expect_body}    to json    {"success":true,"message":"操作成功","data":{"notificationPort":"5221","lastLoginTime":"2017-03-17 08:21:03","appWhiteList":[{"id":3,"cyId":"QavhsAJVtZ","appName":"城管通","packagePath":"com.optima.android.cgt","securityMd5":"1","description":"","useStatus":0,"appType":0,"createTime":1516245593000,"createId":103,"createName":"蒋三全","status":0,"companyId":5},{"id":4,"cyId":"HemOnQbNNs","appName":"WatchAppInfo","packagePath":"com.example.watchappinfo","securityMd5":"app的密钥","description":"","useStatus":0,"appType":1,"createTime":1516246245000,"createId":109,"createName":"方娟","status":0,"companyId":5}],"usbPrivilege":{"developerEnable":"0","developerTime":"0"},"notificationPath":"220.167.53.142","userId":109,"account":"方娟"}}
+    api_login    ${body}    200    ${expect_body}
+
+loginapi_002
+    ${body}    Set Variable    password=&sign=5c81a2d88916903393e9797338db66e4&time=20180125104838&loginUserName=%E6%96%B9%E5%A8%9F&mac=00I71S1710180003
+    api_login    ${body}    200    ${empty}
+
+loginapi_003
+    ${body}    Set Variable    password=e10adc3949ba59abbe56e057f20f883e1&sign=5c81a2d88916903393e9797338db66e4&time=20180125104838&loginUserName=%E6%96%B9%E5%A8%9F&mac=00I71S1710180003
+    ${expect_body}    to json    {"success":false,"message":"账号密码错误","data":null}
+    api_login    ${body}    200    ${expect_body}
+
+loginapi_004
+    ${body}    Set Variable    ${empty}
+    api_login    ${body}    400    ${empty}

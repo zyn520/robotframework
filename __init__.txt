@@ -1,0 +1,6 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           DatabaseLibrary
+Library           Selenium2Library
+Library           requests

@@ -1,0 +1,14 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           DatabaseLibrary
+Library           Selenium2Library
+Library           requests
+Library           String
+Resource          keywords.txt
+
+*** Test Cases ***
+logoutapi_001
+    ${body}     set variable   time=20180125162713&userId=109&sign=5c81a2d88916903393e9797338db66e4&mac=00I71S1710180003
+    ${expect_body}      to json   {"success":"true","meaasge":"操作成功","data":"null"}
+    api_login    ${body}    200        ${expect_body}

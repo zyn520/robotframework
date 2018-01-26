@@ -1,0 +1,39 @@
+*** Settings ***
+Library           Collections
+Library           DatabaseLibrary
+Library           Selenium2Library
+Library           requests
+Library           RequestsLibrary
+Library           String
+
+*** Variables ***
+${base_url}       http://220.167.53.142:6060
+${jsession}       EBB291A8F11A4B83D4317D4FE9CB737C
+
+*** Keywords ***
+GetRequests
+    [Arguments]    ${url}
+    ${cookie}    create dictionary    JSESSIONID=${jsession}
+    ${header}    Create Dictionary    Content-Type=application/json;charset=UTF-8
+    create session    zfy    ${base_url}    headers=${header}    cookies=${cookie}
+    ${resp}    Get Request    zfy    ${url}
+    should be equal as strings    200    ${resp.status_code}
+    [Return]    ${resp}
+
+sssPostRequests
+    [Arguments]    ${contenttype}    ${url}    ${body}
+    ${cookie}    create dictionary    JSESSIONID=${jsession}
+    log    ${cookie}
+    ${data}    Set Variable    ${body}
+    create session    zfy    ${base_url}    headers=${contenttype}    cookies=${cookie}
+    ${resp}    Post Request    zfy    ${url}    data=${data}    headers=${contenttype}
+    #should be equal as strings    200    ${resp.status_code}
+    [Return]    ${resp}
+
+api_login
+    [Arguments]    ${body}    ${expect_code}      ${expect_body}
+    ${header}    create dictionary    Content-Type=application/x-www-form-urlencoded; charset=UTF-8
+    ${resp}    sssPostRequests    ${header}    /security/login/    ${body}
+    should be equal as strings    ${expect_code}     ${resp.status_code}
+    run keyword if    "${expect_body}" !="${empty}"    should be equal as strings    ${resp.json()}    ${expect_body}
+

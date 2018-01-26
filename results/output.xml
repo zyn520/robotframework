@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180126 09:37:30.104" generator="Robot 3.0.2 (Python 3.5.0 on win32)">
+<suite source="E:\robotframework\login_api.txt" id="s1" name="Login Api">
+<test id="s1-t1" name="loginapi_001">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>password=e10adc3949ba59abbe56e057f20f883e&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125155725&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.354" level="INFO">${body} = password=e10adc3949ba59abbe56e057f20f883e&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125155725&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</msg>
+<status starttime="20180126 09:37:30.353" endtime="20180126 09:37:30.354" status="PASS"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>{"success":true,"message":"操作成功","data":{"notificationPort":"5221","lastLoginTime":"2017-03-17 08:21:03","appWhiteList":[{"id":3,"cyId":"QavhsAJVtZ","appName":"城管通","packagePath":"com.optima.android.cgt","securityMd5":"1","description":"","useStatus":0,"appType":0,"createTime":1516245593000,"createId":103,"createName":"蒋三全","status":0,"companyId":5},{"id":4,"cyId":"HemOnQbNNs","appName":"WatchAppInfo","packagePath":"com.example.watchappinfo","securityMd5":"app的密钥","description":"","useStatus":0,"appType":1,"createTime":1516246245000,"createId":109,"createName":"方娟","status":0,"companyId":5}],"usbPrivilege":{"developerEnable":"0","developerTime":"0"},"notificationPath":"220.167.53.142","userId":109,"account":"方娟"}}</arg>
+</arguments>
+<assign>
+<var>${expect_body}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.354" level="INFO">To JSON using : content={"success":true,"message":"操作成功","data":{"notificationPort":"5221","lastLoginTime":"2017-03-17 08:21:03","appWhiteList":[{"id":3,"cyId":"QavhsAJVtZ","appName":"城管通","packagePath":"com.optima.android.cgt","securityMd5":"1","description":"","useStatus":0,"appType":0,"createTime":1516245593000,"createId":103,"createName":"蒋三全","status":0,"companyId":5},{"id":4,"cyId":"HemOnQbNNs","appName":"WatchAppInfo","packagePath":"com.example.watchappinfo","securityMd5":"app的密钥","description":"","useStatus":0,"appType":1,"createTime":1516246245000,"createId":109,"createName":"方娟","status":0,"companyId":5}],"usbPrivilege":{"developerEnable":"0","developerTime":"0"},"notificationPath":"220.167.53.142","userId":109,"account":"方娟"}} </msg>
+<msg timestamp="20180126 09:37:30.354" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20180126 09:37:30.354" level="INFO">${expect_body} = {'success': True, 'data': {'lastLoginTime': '2017-03-17 08:21:03', 'usbPrivilege': {'developerTime': '0', 'developerEnable': '0'}, 'userId': 109, 'notificationPort': '5221', 'notificationPath': '220.1...</msg>
+<status starttime="20180126 09:37:30.354" endtime="20180126 09:37:30.354" status="PASS"></status>
+</kw>
+<kw name="api_login" library="keywords">
+<arguments>
+<arg>${body}</arg>
+<arg>200</arg>
+<arg>${expect_body}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/x-www-form-urlencoded; charset=UTF-8</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.355" level="INFO">${header} = {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}</msg>
+<status starttime="20180126 09:37:30.355" endtime="20180126 09:37:30.355" status="PASS"></status>
+</kw>
+<kw name="sssPostRequests" library="keywords">
+<arguments>
+<arg>${header}</arg>
+<arg>/security/login/</arg>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>JSESSIONID=${jsession}</arg>
+</arguments>
+<assign>
+<var>${cookie}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.356" level="INFO">${cookie} = {'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}</msg>
+<status starttime="20180126 09:37:30.355" endtime="20180126 09:37:30.356" status="PASS"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${cookie}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.356" level="INFO">{'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}</msg>
+<status starttime="20180126 09:37:30.356" endtime="20180126 09:37:30.356" status="PASS"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.356" level="INFO">${data} = password=e10adc3949ba59abbe56e057f20f883e&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125155725&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</msg>
+<status starttime="20180126 09:37:30.356" endtime="20180126 09:37:30.356" status="PASS"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>zfy</arg>
+<arg>${base_url}</arg>
+<arg>headers=${contenttype}</arg>
+<arg>cookies=${cookie}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.357" level="INFO">Creating Session using : alias=zfy, url=http://220.167.53.142:6060, headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},                     cookies={'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status starttime="20180126 09:37:30.356" endtime="20180126 09:37:30.357" status="PASS"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>zfy</arg>
+<arg>${url}</arg>
+<arg>data=${data}</arg>
+<arg>headers=${contenttype}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.639" level="INFO">Post Request using : alias=zfy, uri=/security/login/, data=password=e10adc3949ba59abbe56e057f20f883e&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125155725&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003, headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180126 09:37:30.639" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status starttime="20180126 09:37:30.357" endtime="20180126 09:37:30.640" status="PASS"></status>
+</kw>
+<msg timestamp="20180126 09:37:30.640" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status starttime="20180126 09:37:30.355" endtime="20180126 09:37:30.640" status="PASS"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${expect_code}</arg>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.642" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status starttime="20180126 09:37:30.641" endtime="20180126 09:37:30.642" status="PASS"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${expect_body}" !="${empty}"</arg>
+<arg>should be equal as strings</arg>
+<arg>${resp.json()}</arg>
+<arg>${expect_body}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>${expect_body}</arg>
+</arguments>
+<status starttime="20180126 09:37:30.645" endtime="20180126 09:37:30.647" status="PASS"></status>
+</kw>
+<status starttime="20180126 09:37:30.643" endtime="20180126 09:37:30.647" status="PASS"></status>
+</kw>
+<status starttime="20180126 09:37:30.354" endtime="20180126 09:37:30.648" status="PASS"></status>
+</kw>
+<status critical="yes" starttime="20180126 09:37:30.353" endtime="20180126 09:37:30.648" status="PASS"></status>
+</test>
+<test id="s1-t2" name="loginapi_002">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>password=&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125104838&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.652" level="INFO">${body} = password=&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125104838&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</msg>
+<status starttime="20180126 09:37:30.651" endtime="20180126 09:37:30.652" status="PASS"></status>
+</kw>
+<kw name="api_login" library="keywords">
+<arguments>
+<arg>${body}</arg>
+<arg>200</arg>
+<arg>${empty}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/x-www-form-urlencoded; charset=UTF-8</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.655" level="INFO">${header} = {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}</msg>
+<status starttime="20180126 09:37:30.654" endtime="20180126 09:37:30.655" status="PASS"></status>
+</kw>
+<kw name="sssPostRequests" library="keywords">
+<arguments>
+<arg>${header}</arg>
+<arg>/security/login/</arg>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>JSESSIONID=${jsession}</arg>
+</arguments>
+<assign>
+<var>${cookie}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.658" level="INFO">${cookie} = {'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}</msg>
+<status starttime="20180126 09:37:30.657" endtime="20180126 09:37:30.659" status="PASS"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${cookie}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.660" level="INFO">{'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}</msg>
+<status starttime="20180126 09:37:30.659" endtime="20180126 09:37:30.660" status="PASS"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.661" level="INFO">${data} = password=&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125104838&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</msg>
+<status starttime="20180126 09:37:30.661" endtime="20180126 09:37:30.662" status="PASS"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>zfy</arg>
+<arg>${base_url}</arg>
+<arg>headers=${contenttype}</arg>
+<arg>cookies=${cookie}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.663" level="INFO">Creating Session using : alias=zfy, url=http://220.167.53.142:6060, headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},                     cookies={'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status starttime="20180126 09:37:30.662" endtime="20180126 09:37:30.664" status="PASS"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>zfy</arg>
+<arg>${url}</arg>
+<arg>data=${data}</arg>
+<arg>headers=${contenttype}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.720" level="INFO">Post Request using : alias=zfy, uri=/security/login/, data=password=&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125104838&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003, headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180126 09:37:30.720" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status starttime="20180126 09:37:30.664" endtime="20180126 09:37:30.720" status="PASS"></status>
+</kw>
+<msg timestamp="20180126 09:37:30.721" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status starttime="20180126 09:37:30.656" endtime="20180126 09:37:30.721" status="PASS"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${expect_code}</arg>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.723" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status starttime="20180126 09:37:30.722" endtime="20180126 09:37:30.723" status="PASS"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${expect_body}" !="${empty}"</arg>
+<arg>should be equal as strings</arg>
+<arg>${resp.json()}</arg>
+<arg>${expect_body}</arg>
+</arguments>
+<status starttime="20180126 09:37:30.723" endtime="20180126 09:37:30.724" status="PASS"></status>
+</kw>
+<status starttime="20180126 09:37:30.653" endtime="20180126 09:37:30.725" status="PASS"></status>
+</kw>
+<status critical="yes" starttime="20180126 09:37:30.650" endtime="20180126 09:37:30.725" status="PASS"></status>
+</test>
+<test id="s1-t3" name="loginapi_003">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>password=e10adc3949ba59abbe56e057f20f883e1&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125104838&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.728" level="INFO">${body} = password=e10adc3949ba59abbe56e057f20f883e1&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125104838&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</msg>
+<status starttime="20180126 09:37:30.727" endtime="20180126 09:37:30.728" status="PASS"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>Convert a string to a JSON object</doc>
+<arguments>
+<arg>{"success":false,"message":"账号密码错误","data":null}</arg>
+</arguments>
+<assign>
+<var>${expect_body}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.729" level="INFO">To JSON using : content={"success":false,"message":"账号密码错误","data":null} </msg>
+<msg timestamp="20180126 09:37:30.729" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20180126 09:37:30.730" level="INFO">${expect_body} = {'success': False, 'data': None, 'message': '账号密码错误'}</msg>
+<status starttime="20180126 09:37:30.729" endtime="20180126 09:37:30.730" status="PASS"></status>
+</kw>
+<kw name="api_login" library="keywords">
+<arguments>
+<arg>${body}</arg>
+<arg>200</arg>
+<arg>${expect_body}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/x-www-form-urlencoded; charset=UTF-8</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.732" level="INFO">${header} = {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}</msg>
+<status starttime="20180126 09:37:30.731" endtime="20180126 09:37:30.732" status="PASS"></status>
+</kw>
+<kw name="sssPostRequests" library="keywords">
+<arguments>
+<arg>${header}</arg>
+<arg>/security/login/</arg>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>JSESSIONID=${jsession}</arg>
+</arguments>
+<assign>
+<var>${cookie}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.735" level="INFO">${cookie} = {'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}</msg>
+<status starttime="20180126 09:37:30.734" endtime="20180126 09:37:30.735" status="PASS"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${cookie}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.736" level="INFO">{'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}</msg>
+<status starttime="20180126 09:37:30.735" endtime="20180126 09:37:30.736" status="PASS"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.737" level="INFO">${data} = password=e10adc3949ba59abbe56e057f20f883e1&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125104838&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003</msg>
+<status starttime="20180126 09:37:30.737" endtime="20180126 09:37:30.737" status="PASS"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>zfy</arg>
+<arg>${base_url}</arg>
+<arg>headers=${contenttype}</arg>
+<arg>cookies=${cookie}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.739" level="INFO">Creating Session using : alias=zfy, url=http://220.167.53.142:6060, headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},                     cookies={'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status starttime="20180126 09:37:30.738" endtime="20180126 09:37:30.739" status="PASS"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>zfy</arg>
+<arg>${url}</arg>
+<arg>data=${data}</arg>
+<arg>headers=${contenttype}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.797" level="INFO">Post Request using : alias=zfy, uri=/security/login/, data=password=e10adc3949ba59abbe56e057f20f883e1&amp;sign=5c81a2d88916903393e9797338db66e4&amp;time=20180125104838&amp;loginUserName=%E6%96%B9%E5%A8%9F&amp;mac=00I71S1710180003, headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180126 09:37:30.798" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status starttime="20180126 09:37:30.740" endtime="20180126 09:37:30.798" status="PASS"></status>
+</kw>
+<msg timestamp="20180126 09:37:30.798" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status starttime="20180126 09:37:30.733" endtime="20180126 09:37:30.798" status="PASS"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${expect_code}</arg>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.799" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status starttime="20180126 09:37:30.798" endtime="20180126 09:37:30.799" status="PASS"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${expect_body}" !="${empty}"</arg>
+<arg>should be equal as strings</arg>
+<arg>${resp.json()}</arg>
+<arg>${expect_body}</arg>
+</arguments>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+<arg>${expect_body}</arg>
+</arguments>
+<status starttime="20180126 09:37:30.800" endtime="20180126 09:37:30.800" status="PASS"></status>
+</kw>
+<status starttime="20180126 09:37:30.799" endtime="20180126 09:37:30.801" status="PASS"></status>
+</kw>
+<status starttime="20180126 09:37:30.730" endtime="20180126 09:37:30.801" status="PASS"></status>
+</kw>
+<status critical="yes" starttime="20180126 09:37:30.726" endtime="20180126 09:37:30.801" status="PASS"></status>
+</test>
+<test id="s1-t4" name="loginapi_004">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${empty}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.803" level="INFO">${body} = </msg>
+<status starttime="20180126 09:37:30.802" endtime="20180126 09:37:30.803" status="PASS"></status>
+</kw>
+<kw name="api_login" library="keywords">
+<arguments>
+<arg>${body}</arg>
+<arg>400</arg>
+<arg>${empty}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/x-www-form-urlencoded; charset=UTF-8</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.804" level="INFO">${header} = {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}</msg>
+<status starttime="20180126 09:37:30.804" endtime="20180126 09:37:30.804" status="PASS"></status>
+</kw>
+<kw name="sssPostRequests" library="keywords">
+<arguments>
+<arg>${header}</arg>
+<arg>/security/login/</arg>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>JSESSIONID=${jsession}</arg>
+</arguments>
+<assign>
+<var>${cookie}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.805" level="INFO">${cookie} = {'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}</msg>
+<status starttime="20180126 09:37:30.805" endtime="20180126 09:37:30.805" status="PASS"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${cookie}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.806" level="INFO">{'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}</msg>
+<status starttime="20180126 09:37:30.806" endtime="20180126 09:37:30.806" status="PASS"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${body}</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.807" level="INFO">${data} = </msg>
+<status starttime="20180126 09:37:30.806" endtime="20180126 09:37:30.807" status="PASS"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>zfy</arg>
+<arg>${base_url}</arg>
+<arg>headers=${contenttype}</arg>
+<arg>cookies=${cookie}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.807" level="INFO">Creating Session using : alias=zfy, url=http://220.167.53.142:6060, headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},                     cookies={'JSESSIONID': 'EBB291A8F11A4B83D4317D4FE9CB737C'}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status starttime="20180126 09:37:30.807" endtime="20180126 09:37:30.808" status="PASS"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>zfy</arg>
+<arg>${url}</arg>
+<arg>data=${data}</arg>
+<arg>headers=${contenttype}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180126 09:37:30.831" level="INFO">Post Request using : alias=zfy, uri=/security/login/, data=, headers={'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180126 09:37:30.831" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status starttime="20180126 09:37:30.808" endtime="20180126 09:37:30.831" status="PASS"></status>
+</kw>
+<msg timestamp="20180126 09:37:30.831" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status starttime="20180126 09:37:30.804" endtime="20180126 09:37:30.831" status="PASS"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${expect_code}</arg>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20180126 09:37:30.832" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status starttime="20180126 09:37:30.832" endtime="20180126 09:37:30.832" status="PASS"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${expect_body}" !="${empty}"</arg>
+<arg>should be equal as strings</arg>
+<arg>${resp.json()}</arg>
+<arg>${expect_body}</arg>
+</arguments>
+<status starttime="20180126 09:37:30.832" endtime="20180126 09:37:30.833" status="PASS"></status>
+</kw>
+<status starttime="20180126 09:37:30.803" endtime="20180126 09:37:30.833" status="PASS"></status>
+</kw>
+<status critical="yes" starttime="20180126 09:37:30.801" endtime="20180126 09:37:30.833" status="PASS"></status>
+</test>
+<status starttime="20180126 09:37:30.106" endtime="20180126 09:37:30.834" status="PASS"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0">Critical Tests</stat>
+<stat pass="4" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="4" id="s1" name="Login Api" fail="0">Login Api</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -1,0 +1,4 @@
+*** Test Cases ***
+t1
+    ${a}    Set Variable     ttt
+    Run Keyword If    '${a}'=='5'    log    1
