@@ -8,7 +8,7 @@ Library           String
 
 *** Variables ***
 ${base_url}       http://220.167.53.142:6060
-${jsession}       EBB291A8F11A4B83D4317D4FE9CB737C
+${jsession}       588AD0E405D39A9BA0680774A2DA8F20
 
 *** Keywords ***
 GetRequests
